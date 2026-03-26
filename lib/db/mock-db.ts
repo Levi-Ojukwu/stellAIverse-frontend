@@ -1,8 +1,57 @@
 import { TestCase, TestExecution } from "./types";
+import { ProvenanceRecord } from "../provenance/types";
 
 // Mock in-memory database
 let testCases: TestCase[] = [];
 let testExecutions: TestExecution[] = [];
+let provenanceRecords: ProvenanceRecord[] = [
+  {
+    id: "pv-1",
+    agentId: "ag-1",
+    agentName: "Cosmic Predictor",
+    userId: "user-123",
+    userName: "Alex Explorer",
+    action: "input_received",
+    timestamp: new Date(Date.now() - 3600000).toISOString(),
+    status: "success",
+    details: { input: "Predict market volatility for XLM/USDC" }
+  },
+  {
+    id: "pv-2",
+    agentId: "ag-1",
+    agentName: "Cosmic Predictor",
+    userId: "user-123",
+    userName: "Alex Explorer",
+    action: "provider_call",
+    timestamp: new Date(Date.now() - 3500000).toISOString(),
+    status: "success",
+    provider: "OpenAI",
+    details: { payload: { model: "gpt-4", prompt: "..." } }
+  },
+  {
+    id: "pv-3",
+    agentId: "ag-1",
+    agentName: "Cosmic Predictor",
+    userId: "user-123",
+    userName: "Alex Explorer",
+    action: "on_chain_submission",
+    timestamp: new Date(Date.now() - 3400000).toISOString(),
+    status: "success",
+    txHash: "GCB...123",
+    details: { payload: { amount: "100", asset: "XLM" } }
+  },
+  {
+    id: "pv-4",
+    agentId: "ag-2",
+    agentName: "Nebula Guard",
+    userId: "user-456",
+    userName: "Sam Security",
+    action: "error_encountered",
+    timestamp: new Date(Date.now() - 1800000).toISOString(),
+    status: "failure",
+    details: { error: "Contract not found on network" }
+  }
+];
 
 export const db = {
   testCases: {
@@ -46,4 +95,11 @@ export const db = {
       return null;
     },
   },
+  provenance: {
+    findMany: async () => [...provenanceRecords],
+    create: async (data: ProvenanceRecord) => {
+      provenanceRecords.push(data);
+      return data;
+    }
+  }
 };
