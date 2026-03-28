@@ -39,11 +39,11 @@ export const VersionCompare: React.FC<VersionCompareProps> = ({
                              'text-slate-400';
           
           const prefix = part.added ? '+ ' : part.removed ? '- ' : '  ';
-          const lines = part.value.split('\n').filter(line => line.length > 0);
+          const lines = part.value.split('\n').filter((line: string) => line.length > 0);
 
           return (
             <div key={index} className={colorClass}>
-              {lines.map((line, i) => (
+              {lines.map((line: string, i: number) => (
                 <div key={i} className="px-4 py-1.5 border-b border-slate-800/50 last:border-0 whitespace-pre">
                   <span className="opacity-50 select-none mr-4">{prefix}</span>
                   {line}

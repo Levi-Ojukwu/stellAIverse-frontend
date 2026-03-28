@@ -10,7 +10,8 @@
     "lint": "next lint",
     "test": "jest --config jest.config.cjs",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "telemetry:ws": "node scripts/telemetry-ws-server.mjs"
   },
   "dependencies": {
     "@stellar/freighter-api": "^6.0.0",
@@ -19,6 +20,7 @@
     "algoliasearch": "^4.26.0",
     "axios": "^1.6.0",
     "clsx": "^2.0.0",
+    "diff": "^8.0.4",
     "i18next": "^25.8.13",
     "ipfs-http-client": "^60.0.1",
     "next": "^16.1.6",
@@ -34,10 +36,12 @@
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.6.1",
+    "@types/diff": "^7.0.2",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.0.0",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
+    "@types/semver": "^7.7.1",
     "autoprefixer": "^10.4.0",
     "eslint": "^8.57.0",
     "eslint-config-next": "^15.0.0",

@@ -8,8 +8,6 @@ import ConnectWallet from "./ConnectWallet";
 import WalletAddress from "./WalletAddress";
 import NetworkSwitcher from "./NetworkSwitcher";
 import { useTranslation } from "next-i18next";
-import SubmissionsDashboardPage from  "@/features/submissions-dashboard/page";
-
 export const Navigation: React.FC = () => {
   const { t, i18n } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,6 +16,7 @@ export const Navigation: React.FC = () => {
     { href: "/marketplace", label: "Marketplace" },
     { href: "/create", label: "Create Agent" },
     { href: "/analytics", label: "Analytics" },
+    { href: "/telemetry", label: "Telemetry" },
     { href: "/security", label: "Security" },
     { href: "/provenance", label: "Provenance" },
     { href: "/portfolio", label: "Portfolio" },
