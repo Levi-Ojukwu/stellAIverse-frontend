@@ -18,6 +18,13 @@ stellaiverse-frontend/
 │   └── learn/
 │       └── page.tsx          # Learning center
 │
+├── features/                 # Core features and modules
+│   ├── agent-discovery/      # Agent search and filtering
+│   ├── recommendations/      # Personalized AI-driven recommendations
+│   ├── agent-telemetry/      # Monitoring and analytics
+│   ├── agent-testing/        # Simulation and testing
+│   └── ...
+│
 ├── components/               # Reusable React components
 │   ├── Button.tsx            # Button component
 │   ├── Card.tsx              # Card component
@@ -56,6 +63,7 @@ stellaiverse-frontend/
 - ✅ **Responsive Navigation**: Mobile-friendly navigation with hamburger menu
 - ✅ **Cosmic UI Theme**: Dark space aesthetic with glowing effects
 - ✅ **Agent Marketplace**: Browse agents with ratings and user counts
+- ✅ **Personalized Recommendations**: AI-driven agent suggestions with explanations and feedback
 - ✅ **Creation Wizard**: Multi-step form for creating new agents
 - ✅ **Portfolio Dashboard**: Track agent performance and statistics
 - ✅ **Learning Center**: Tutorials for building smarter agents
