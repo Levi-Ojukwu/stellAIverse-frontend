@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useMemo, useCallback } from 'react';
 import {
   Line,
   LineChart,
@@ -12,6 +12,7 @@ import {
   Legend,
 } from 'recharts';
 import type { MetricsSeries } from '@/lib/metrics/types';
+import { useDebounce } from 'use-debounce';
 
 const formatTs = React.memo((tsSeconds: number) => {
   const d = new Date(tsSeconds * 1000);
@@ -25,7 +26,7 @@ const colorForIndex = React.memo((i: number) => {
 
 type ChartPoint = { ts: number; label: string } & Record<string, number | null>;
 
-function buildChartData(series: MetricsSeries[]): { data: ChartPoint[]; keys: string[] } {
+const buildChartData = useCallback((series: MetricsSeries[]): { data: ChartPoint[]; keys: string[] } => {
   const keys = series.map((s) => s.seriesName);
   const byTs = new Map<number, ChartPoint>();
   for (const s of series) {
@@ -37,18 +38,26 @@ function buildChartData(series: MetricsSeries[]): { data: ChartPoint[]; keys: st
   }
   const data = Array.from(byTs.values()).sort((a, b) => a.ts - b.ts);
   return { data, keys };
-}
+}, []);
 
-const MetricLineChart = React.memo(({
-  series,
-  height = 280,
-}: {
+interface OptimizedMetricLineChartProps {
   series: MetricsSeries[];
   height?: number;
-}) => {
-  const { data, keys } = buildChartData(series);
+  debounceMs?: number;
+}
 
-  if (series.length === 0) {
+const OptimizedMetricLineChart: React.FC<OptimizedMetricLineChartProps> = React.memo(({
+  series,
+  height = 280,
+  debounceMs = 500,
+}) => {
+  const [debouncedSeries] = useDebounce(series, debounceMs);
+
+  const chartData = useMemo(() => buildChartData(debouncedSeries), [debouncedSeries, buildChartData]);
+
+  const { data, keys } = chartData;
+
+  if (debouncedSeries.length === 0) {
     return <div className="text-gray-400">No data.</div>;
   }
 
@@ -84,7 +93,6 @@ const MetricLineChart = React.memo(({
   );
 });
 
-MetricLineChart.displayName = 'MetricLineChart';
+OptimizedMetricLineChart.displayName = 'OptimizedMetricLineChart';
 
-export default MetricLineChart;
-
+export default OptimizedMetricLineChart;

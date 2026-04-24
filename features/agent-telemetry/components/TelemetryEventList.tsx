@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import type { TelemetryEvent } from '@/lib/telemetry/types';
 import clsx from 'clsx';
 
@@ -21,7 +22,7 @@ interface Props {
   events: TelemetryEvent[];
 }
 
-export function TelemetryEventList({ events }: Props) {
+export const TelemetryEventList = React.memo(({ events }: Props) => {
   if (events.length === 0) {
     return (
       <p className="text-gray-500 text-sm py-8 text-center border border-dashed border-cosmic-purple/20 rounded-lg">
@@ -63,4 +64,6 @@ export function TelemetryEventList({ events }: Props) {
       ))}
     </ul>
   );
-}
+});
+
+TelemetryEventList.displayName = 'TelemetryEventList';

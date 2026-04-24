@@ -8,7 +8,7 @@ type Props = {
   selected?: boolean
 }
 
-export const SimulationCard: React.FC<Props> = ({ sim, selected }) => {
+export const SimulationCard: React.FC<Props> = React.memo(({ sim, selected }) => {
   const [startRun, reloadSimulation, setSelectedSimulation] = useSimulationStore((state: SimulationStore) => [state.startRun, state.reloadSimulation, state.setSelectedSimulation])
   const disabled = sim.status === 'running'
   const highlight = Boolean(useSimulationStore.getState().versionHighlights[sim.id])
@@ -54,6 +54,8 @@ export const SimulationCard: React.FC<Props> = ({ sim, selected }) => {
       </div>
     </div>
   )
-}
+});
+
+SimulationCard.displayName = 'SimulationCard';
 
 export default SimulationCard

@@ -3,7 +3,7 @@ import React from 'react'
 import SimulationCard from './SimulationCard'
 import useSimulationStore, { Simulation as StoreSimulation, SimulationStore } from '../../store/useSimulationStore'
 
-export const SimulationList: React.FC = () => {
+const SimulationList: React.FC = React.memo(() => {
   const [sims, selectedSimulation] = useSimulationStore((state: SimulationStore) => [state.simulations, state.selectedSimulation])
 
   if (!sims || sims.length === 0) {
@@ -17,6 +17,8 @@ export const SimulationList: React.FC = () => {
       ))}
     </div>
   )
-}
+});
+
+SimulationList.displayName = 'SimulationList';
 
 export default SimulationList

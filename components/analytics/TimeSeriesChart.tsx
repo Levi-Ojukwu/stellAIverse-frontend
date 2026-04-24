@@ -1,3 +1,4 @@
+import React from 'react';
 import Card from '@/components/Card';
 import { AnalyticsDataset } from '@/lib/analytics/types';
 import {
@@ -11,7 +12,7 @@ import {
   YAxis,
 } from 'recharts';
 
-export default function TimeSeriesChart({ dataset }: { dataset: AnalyticsDataset }) {
+const TimeSeriesChart = React.memo(({ dataset }: { dataset: AnalyticsDataset }) => {
   return (
     <Card>
       <h2 className="text-xl font-semibold glow-text mb-4">Historical Metrics</h2>
@@ -38,4 +39,8 @@ export default function TimeSeriesChart({ dataset }: { dataset: AnalyticsDataset
       </div>
     </Card>
   );
-}
+});
+
+TimeSeriesChart.displayName = 'TimeSeriesChart';
+
+export default TimeSeriesChart;
