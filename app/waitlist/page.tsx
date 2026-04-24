@@ -73,9 +73,9 @@ export default function PremiumWaitlist() {
         <div className="max-w-2xl w-full text-center">
           <div className="mb-8">
             <div className="text-6xl mb-4">✨</div>
-            <h1 className="text-4xl font-bold mb-4 glow-text">You're on the list!</h1>
+            <h1 className="text-4xl font-bold mb-4 glow-text">You&apos;re on the list!</h1>
             <p className="text-xl text-cosmic-cyan mb-8">
-              Thank you for joining the premium waitlist. We'll be in touch soon with exclusive updates.
+              Thank you for joining the premium waitlist. We&apos;ll be in touch soon with exclusive updates.
             </p>
           </div>
           <div className="space-y-4">
@@ -190,7 +190,7 @@ export default function PremiumWaitlist() {
               Ready to Transform Your AI Experience?
             </h2>
             <p className="text-cosmic-cyan mb-6">
-              Don't miss your chance to be at the forefront of AI agent innovation.
+              Don&apos;t miss your chance to be at the forefront of AI agent innovation.
             </p>
             <Button size="lg" onClick={() => document.getElementById('email-form')?.scrollIntoView({ behavior: 'smooth' })}>
               Join the Waitlist Now

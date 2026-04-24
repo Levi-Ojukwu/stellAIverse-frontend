@@ -22,7 +22,11 @@ function colorForIndex(i: number) {
   return palette[i % palette.length];
 }
 
-type ChartPoint = { ts: number; label: string } & Record<string, number | null>;
+type ChartPoint = {
+  ts: number;
+  label: string;
+  [key: string]: number | string | null;
+};
 
 function buildChartData(series: MetricsSeries[]): { data: ChartPoint[]; keys: string[] } {
   const keys = series.map((s) => s.seriesName);
@@ -30,7 +34,7 @@ function buildChartData(series: MetricsSeries[]): { data: ChartPoint[]; keys: st
   for (const s of series) {
     for (const p of s.points) {
       const existing = byTs.get(p.ts) || { ts: p.ts, label: formatTs(p.ts) };
-      (existing as Record<string, number | null>)[s.seriesName] = p.value;
+      existing[s.seriesName] = p.value;
       byTs.set(p.ts, existing);
     }
   }
