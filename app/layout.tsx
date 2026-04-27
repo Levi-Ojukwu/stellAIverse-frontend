@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { StellarWalletProvider } from '@/components/context/StellarWalletProvider';
+import { ThemeModeProvider } from '@/components/providers/ThemeModeProvider';
 import QueryProvider from '@/components/providers/QueryProvider';
 import Navigation from '@/components/Navigation';
 import PWAInstall from '@/components/PWAInstall';
@@ -60,6 +61,26 @@ export const metadata: Metadata = {
 };
 
 function RootLayout({ children }: { children: React.ReactNode }) {
+  const themeBootstrapScript = `
+    (() => {
+      try {
+        const storageKey = 'stellaiverse-theme-mode';
+        const savedTheme = localStorage.getItem(storageKey);
+        const theme =
+          savedTheme === 'light' || savedTheme === 'dark'
+            ? savedTheme
+            : window.matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'dark'
+              : 'light';
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+      } catch (error) {
+        document.documentElement.dataset.theme = 'dark';
+        document.documentElement.style.colorScheme = 'dark';
+      }
+    })();
+  `;
+
   return (
     <html lang="en">
       <head>
@@ -166,14 +187,14 @@ function RootLayout({ children }: { children: React.ReactNode }) {
                 ))}
               </div>
 
-              <div className="relative z-10">
-                <Navigation />
-                {children}
+                <div className="relative z-10">
+                  <Navigation />
+                  {children}
+                </div>
               </div>
-            </div>
-          </StellarWalletProvider>
-        </QueryProvider>
-        <PWAInstall />
+            </StellarWalletProvider>
+          </QueryProvider>
+        </ThemeModeProvider>
       </body>
     </html>
   );
